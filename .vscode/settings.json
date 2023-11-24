@@ -1,0 +1,7 @@
+{
+    "liveServer.settings.CustomBrowser": "firefox",
+    "debug.javascript.defaultRuntimeExecutable": {
+        
+        "pwa-node": "node"
+    }
+}
