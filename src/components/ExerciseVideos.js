@@ -1,59 +1,66 @@
 import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
+import Loader from './Loader'
 
-const ExerciseVideos = ({exerciseVideos, name}) => {
-  return (
-    <Box
-        sx={{
-            marginTop: {lg: '200px', xs: '20px'}
-        }}
-        p='20px'
-    >
-        <Typography
-            variant='h3'
-            mb="33px"  
-        >
-            Watch <span style={{color: '#ff2625', textTransform: 'capatilize'}}>{name}</span> exercise videos  
-        </Typography>
-        <Stack
-            justifyContent='flex-start'
-            flexWrap='wrap'
-            alignItems='center'
+const ExerciseVideos = ({ exerciseVideos, name }) => {
+    if (!exerciseVideos.length) return <Loader />;
+
+    return (
+        <Box
             sx={{
-                flexDirection: {lg: 'row'},
-                gap: {lg: '110px', xs: '0'}
+                marginTop: { lg: '203px', xs: '20px' }
             }}
+            p='20px'
         >
-            {exerciseVideos?.slice(0, 6)?.map((item, index) => (
-                <a
-                key={index}
-                className='exercise-video'
-                href={`https://www.youtube.com/watch?v=${item.video.videoId}`}
-                target='_blank'
-                rel='noreferrer'
-                >
-                    <img src={item.video.thumbnails[0].url} alt="" />
-                    <Box>
-                        <Typography
-                            variant='h5'
-                            color='#000'
-                        >
-                            {item.video.title}
-                        </Typography>
-                        <Typography
-                            variant='h6'
-                            color='#000'
-                        >
-                            {item.video.channelName}
-                        </Typography>
-                    
-                    </Box>
-                </a>
-            )) }
+            <Typography
+                sx={{ fontSize: { lg: '44px', xs: '25px' } }} fontWeight={700} color="#000"
+                variant='h3'
+                mb="33px"
+            >
+                Watch <span style={{ color: '#ff2625', textTransform: 'capitalize' }}>{name}</span> exercise videos
+            </Typography>
+            <Stack
+                justifyContent='flex-start'
+                flexWrap='wrap'
+                alignItems='center'
+                sx={{
+                    flexDirection: { lg: 'row' },
+                    gap: { lg: '110px', xs: '0' }
+                }}
+            >
+                {exerciseVideos?.slice(0, 6)?.map((item, index) => (
+                    <a
+                        key={index}
+                        className='exercise-video'
+                        href={`https://www.youtube.com/watch?v=${item.video.videoId}`}
+                        target='_blank'
+                        rel='noreferrer'
+                    >
+                        <img
+                            style={{ borderTopLeftRadius: '20px' }}
+                            src={item.video.thumbnails[0].url} alt="" />
+                        <Box>
+                            <Typography
+                                sx={{ fontSize: { lg: '28px', xs: '18px' } }}
+                                variant='h5'
+                                color='#000'
+                            >
+                                {item.video.title}
+                            </Typography>
+                            <Typography
+                                variant='h6'
+                                color='#000'
+                            >
+                                {item.video.channelName}
+                            </Typography>
 
-        </Stack>
-    </Box>
-  )
-}
+                        </Box>
+                    </a>
+                ))}
 
-export default ExerciseVideos
+            </Stack>
+        </Box>
+    );
+};
+
+export default ExerciseVideos;
