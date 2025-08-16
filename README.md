@@ -1,71 +1,111 @@
-##[Live Link](https://kk-gold-gym.netlify.app/)
-# Getting Started with Create React App
+# Awesome Kartikey Gym Exercise Finder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Now-brightgreen)](https://kk-gold-gym.netlify.app/)
 
-## Available Scripts
+A React-based web application for finding and exploring gym exercises. Users can search for exercises, browse by body part, view detailed exercise information including GIFs and instructions, and find related YouTube videos.
 
-In the project directory, you can run:
+## Description
 
-### `npm start`
+This application provides a comprehensive database of gym exercises fetched from the ExerciseDB API via RapidAPI. It allows users to easily discover exercises based on body parts, target muscles, or required equipment. Detailed views provide visual guides (GIFs) and instructions, along with related exercise videos from YouTube and suggestions for similar exercises.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Exercise Search:** Search exercises by name, target muscle, equipment, or body part.
+- **Browse by Body Part:** Filter exercises using a horizontal scrolling menu of body part categories.
+- **Detailed Exercise View:** View comprehensive details for each exercise, including name, description, GIF animation, target muscle, and equipment used.
+- **Related YouTube Videos:** Watch relevant exercise tutorial videos fetched from YouTube.
+- **Similar Exercises:** Discover exercises targeting the same muscle group or using the same equipment.
+- **Pagination:** Efficiently browse through large lists of exercises.
+- **Responsive Design:** Adapts to different screen sizes for accessibility on various devices.
+- **Loading States:** Visual indicators while data is being fetched.
 
-### `npm test`
+## Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Frontend:**
+  - React (v18.2.0)
+  - React Router DOM (v6.3.0) for routing
+  - Material UI (MUI v5.6.1) for UI components and styling
+  - `react-horizontal-scrolling-menu` for category/exercise carousels
+  - `react-loader-spinner` for loading indicators
+- **APIs:**
+  - ExerciseDB (via RapidAPI) for exercise data
+  - YouTube Search and Download (via RapidAPI) for related videos
+- **Styling:**
+  - CSS (`App.css`)
+  - Material UI (`sx` prop, styled components implicitly via MUI)
+- **Build Tool:**
+  - Create React App (`react-scripts` v5.0.1)
 
-### `npm run build`
+## Setup Instructions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Follow these steps to set up the project locally:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.  **Clone the repository:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```bash
+    git clone <your-repository-url>
+    cd gym-exercise
+    ```
 
-### `npm run eject`
+2.  **Install dependencies:**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    ```bash
+    npm install
+    ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3.  **Configure API Keys:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    - This project uses external APIs (ExerciseDB and YouTube Search) hosted on RapidAPI.
+    - **IMPORTANT:** The API keys are currently **hardcoded** in `src/utils/fetchData.js`. This is **not secure** for production or public repositories.
+    - **Recommended:**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+      - Sign up for accounts on [RapidAPI](https://rapidapi.com/).
+      - Subscribe to the [ExerciseDB API](https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb) and the [YouTube Search and Download API](https://rapidapi.com/h0p3rwe/api/youtube-search-and-download).
+      - Create a `.env` file in the root of your project.
+      - Add your keys to the `.env` file:
+        ```env
+        REACT_APP_RAPID_API_KEY=your_rapidapi_key
+        ```
+      - Modify `src/utils/fetchData.js` to use these environment variables:
 
-## Learn More
+        ```javascript
+        // src/utils/fetchData.js
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+        export const exerciseOptions = {
+          method: "GET",
+          headers: {
+            "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+            "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY, // Use environment variable
+          },
+        };
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+        export const youtubeOptions = {
+          method: "GET",
+          headers: {
+            "X-RapidAPI-Host": "youtube-search-and-download.p.rapidapi.com",
+            "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY, // Use environment variable
+          },
+        };
 
-### Code Splitting
+        // ... rest of the file
+        ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    - _Alternatively, for quick local testing only, you can replace the hardcoded keys in `src/utils/fetchData.js` directly with your own keys._
 
-### Analyzing the Bundle Size
+4.  **Start the development server:**
+    ```bash
+    npm start
+    ```
+    The application should now be running on `http://localhost:3000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Usage
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1.  **Landing Page:** The home page displays a hero banner and a search section.
+2.  **Search:** Enter an exercise name, target muscle, equipment type, or body part into the search bar and click "Search".
+3.  **Browse Categories:** Click on a body part category in the horizontal scrollbar below the search bar to filter exercises.
+4.  **View Exercises:** Search results or category exercises are displayed as cards below the search/category section. Use the pagination controls at the bottom if necessary.
+5.  **View Details:** Click on an exercise card to navigate to the detail page. Here you will find:
+    - A GIF demonstrating the exercise.
+    - Detailed information (target muscle, equipment).
+    - Related YouTube video tutorials.
+    - Lists of similar exercises based on target muscle and equipment.
